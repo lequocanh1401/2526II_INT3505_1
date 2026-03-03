@@ -1,0 +1,27 @@
+Buổi 1: Giới thiệu về API và Web Services
+Thực hành:
+Bài tập về nhà: Tìm và phân tích 3 API công khai (GitHub, OpenWeather, v.v.)
+
+1. GitHub REST API
+- Endpoint: https://api.github.com/users/lequocanh1401
+- Kiểu kiến trúc: REST
+- Định dạng dữ liệu: JSON
+- Nhận xét: 
++ Dùng phương thức GET để truy xuất thông tin Profile. 
++ Dữ liệu trả về có cấu trúc tường minh, dễ tích hợp cho các ứng dụng quản lý dự án hoặc hiển thị Dashboard cá nhân.
+
+2. OpenWeatherMap API
+- Endpoint mẫu: https://api.openweathermap.org/data/2.5/weather?q=Hanoi&appid={API_KEY}
+- Kiểu kiến trúc: REST
+- Định dạng dữ liệu: JSON
+- Nhận xét: 
++ Cung cấp dữ liệu thời tiết thực tế. 
++ Điểm đặc trưng là yêu cầu API Key (Authentication) trong Query String, cho thấy khía cạnh bảo mật và quản lý lưu lượng truy cập của nhà cung cấp dịch vụ.
+
+3. SpaceX APIgit commit -m "Week 1" 
+- Endpoint: https://api.spacexdata.com/v4/launches/latest
+- Kiểu kiến trúc: REST
+- Định dạng dữ liệu: JSON
+- Nhận xét: 
++ Một Open API điển hình, không cần xác thực. 
++ Phù hợp để thực hành lấy dữ liệu danh sách và chi tiết trong phát triển ứng dụng Mobile hoặc Web.
