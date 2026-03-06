@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, make_response 
 
 app = Flask(__name__, static_folder='static')
 books = [{"id": 1, "title": "Python UET", "author": "UET"}]
@@ -10,10 +10,12 @@ def home(): return app.send_static_file('index.html')
 def handle_books():
     token = request.headers.get('Authorization')
     if token != 'UET-SECRET-KEY':
-        return jsonify({"error": "Unauthorized - Phải có Token mới cho xem!"}), 401
+        return jsonify({"error": "Unauthorized"}), 401
 
     if request.method == 'GET':
-        return jsonify(books)
+        res = make_response(jsonify(books))
+        res.headers['Cache-Control'] = 'public, max-age=60' 
+        return res
     
     if request.method == 'POST':
         new_book = request.json

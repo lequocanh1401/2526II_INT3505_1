@@ -2,7 +2,7 @@
 <html>
 
 <body>
-    <h2>Thư viện Stateless (Ver 3)</h2>
+    <h2>Bổ sung Cacheable (Ver 4)</h2>
     <button onclick="callAPI('GET')">Xem sách</button>
     <button onclick="callAPI('POST')">Thêm sách</button>
 
@@ -15,7 +15,7 @@
 
         function callAPI(method) {
             const options = { method: method, headers: myHeaders };
-            if (method === 'POST') options.body = JSON.stringify({ title: "Sách mới V3" });
+            if (method === 'POST') options.body = JSON.stringify({ title: "Sách mới V4" });
 
             fetch(url, options)
                 .then(r => r.json())
