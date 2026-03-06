@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <h2>Thư viện mini của UET</h2>
+    <button onclick="loadBooks()">Xem danh sách sách</button>
+    <ul id="book-list"></ul>
+
+    <script>
+        function loadBooks() {
+            fetch('/api/books')
+                .then(response => response.json())
+                .then(data => {
+                    let list = document.getElementById('book-list');
+                    list.innerHTML = "";
+                    data.forEach(book => {
+                        list.innerHTML += `<li>${book.title} - ${book.author}</li>`;
+                    });
+                });
+        }
+    </script>
+</body>
+
+</html>
