@@ -1,18 +1,28 @@
-<button onclick="load()">Xem</button>
-<button onclick="add()">Thêm</button>
+<!DOCTYPE html>
+<html>
 
-<script>
-    const url = '/api/books';
+<body>
+    <h2>Thư viện Stateless (Ver 3)</h2>
+    <button onclick="callAPI('GET')">Xem sách</button>
+    <button onclick="callAPI('POST')">Thêm sách</button>
 
-    function load() {
-        fetch(url).then(r => r.json()).then(d => alert(JSON.stringify(d)));
-    }
+    <script>
+        const url = '/api/books';
+        const myHeaders = {
+            'Content-Type': 'application/json',
+            'Authorization': 'UET-SECRET-KEY'
+        };
 
-    function add() {
-        fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ title: "Sách mới" })
-        }).then(() => load());
-    }
-</script>
+        function callAPI(method) {
+            const options = { method: method, headers: myHeaders };
+            if (method === 'POST') options.body = JSON.stringify({ title: "Sách mới V3" });
+
+            fetch(url, options)
+                .then(r => r.json())
+                .then(d => alert(JSON.stringify(d, null, 2)))
+                .catch(e => alert("Lỗi: " + e));
+        }
+    </script>
+</body>
+
+</html>
