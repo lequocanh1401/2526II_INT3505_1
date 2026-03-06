@@ -1,19 +1,20 @@
-from flask import Flask, jsonify, send_from_directory
-import os
+from flask import Flask, jsonify, request, render_template
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static', template_folder='static')
+books = [{"id": 1, "title": "Python UET"}] 
 
 @app.route('/')
-def index():
-    return send_from_directory('static', 'index.html')
+def home(): return app.send_static_file('index.html')
 
-@app.route('/api/books')
-def get_books():
-    books = [
-        {"id": 1, "title": "Lập trình Python", "author": "UET"},
-        {"id": 2, "title": "Kiến trúc SOA", "author": "Thầy của bạn"},
-    ]
-    return jsonify(books)
+@app.route('/api/books', methods=['GET', 'POST'])
+def handle_books():
+    if request.method == 'GET':
+        return jsonify(books) 
+    
+    if request.method == 'POST':
+        new_book = request.json 
+        books.append(new_book)
+        return jsonify(new_book), 201 
 
 if __name__ == '__main__':
     app.run(debug=True)

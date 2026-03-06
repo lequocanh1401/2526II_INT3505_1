@@ -1,24 +1,18 @@
-<!DOCTYPE html>
-<html>
+<button onclick="load()">Xem</button>
+<button onclick="add()">Thêm</button>
 
-<body>
-    <h2>Thư viện mini của UET</h2>
-    <button onclick="loadBooks()">Xem danh sách sách</button>
-    <ul id="book-list"></ul>
+<script>
+    const url = '/api/books';
 
-    <script>
-        function loadBooks() {
-            fetch('/api/books')
-                .then(response => response.json())
-                .then(data => {
-                    let list = document.getElementById('book-list');
-                    list.innerHTML = "";
-                    data.forEach(book => {
-                        list.innerHTML += `<li>${book.title} - ${book.author}</li>`;
-                    });
-                });
-        }
-    </script>
-</body>
+    function load() {
+        fetch(url).then(r => r.json()).then(d => alert(JSON.stringify(d)));
+    }
 
-</html>
+    function add() {
+        fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ title: "Sách mới" })
+        }).then(() => load());
+    }
+</script>
