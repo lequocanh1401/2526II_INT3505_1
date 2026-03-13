@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Thư viện JWT</title>
+</head>
+
+<body>
+    <h2>Thư viện Stateless & JWT (Ver 4)</h2>
+
+    <button onclick="login()">1. Đăng nhập (Lấy JWT)</button>
+    <hr>
+
+    <button onclick="callAPI('GET')">2. Xem sách</button>
+    <button onclick="callAPI('POST')">3. Thêm sách</button>
+
+    <p><strong>Token của bạn:</strong> <span id="token-display" style="word-break: break-all; color: blue;">Chưa
+            có</span></p>
+
+    <script>
+        const url = '/api/books';
+        let myJwtToken = ''; // Biến lưu JWT trong bộ nhớ tạm của trình duyệt
+
+        // Hàm gọi API /api/login để lấy token
+        function login() {
+            fetch('/api/login', { method: 'POST' })
+                .then(r => r.json())
+                .then(data => {
+                    myJwtToken = data.token; // Lưu lại token
+                    document.getElementById('token-display').innerText = myJwtToken;
+                    alert("Đăng nhập thành công! Đã lấy JWT.");
+                })
+                .catch(e => alert("Lỗi: " + e));
+        }
+
+        // Hàm gọi API /api/books
+        function callAPI(method) {
+            if (!myJwtToken) {
+                alert("Bạn phải ấn 'Đăng nhập' để lấy Token trước!");
+                return;
+            }
+
+            // Đính kèm JWT vào header với tiền tố 'Bearer '
+            const myHeaders = {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + myJwtToken
+            };
+
+            const options = { method: method, headers: myHeaders };
+            if (method === 'POST') options.body = JSON.stringify({ title: "Sách mới xịn xò" });
+
+            fetch(url, options)
+                .then(async r => {
+                    const data = await r.json();
+                    // Nếu mã lỗi 401 thì in ra lỗi do Server gửi về
+                    if (!r.ok) throw new Error(data.error || "Lỗi không xác định");
+                    return data;
+                })
+                .then(d => alert("THÀNH CÔNG:\n" + JSON.stringify(d, null, 2)))
+                .catch(e => alert("THẤT BẠI:\n" + e.message));
+        }
+    </script>
+</body>
+
+</html>
