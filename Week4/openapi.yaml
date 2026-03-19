@@ -1,0 +1,86 @@
+openapi: 3.0.0
+info:
+  title: API Quản lý Sách
+  description: Tài liệu OpenAPI cho chức năng quản lý sách
+  version: 1.0.0
+servers:
+  - url: http://localhost:5000
+    description: Local server
+paths:
+  /books:
+    get:
+      summary: Lấy danh sách toàn bộ sách
+      responses:
+        '200':
+          description: Thành công
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
+    post:
+      summary: Thêm một cuốn sách mới
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+      responses:
+        '201':
+          description: Đã tạo sách thành công
+  /books/{id}:
+    get:
+      summary: Lấy thông tin chi tiết một cuốn sách
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Thành công
+    put:
+      summary: Cập nhật thông tin sách
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+      responses:
+        '200':
+          description: Cập nhật thành công
+    delete:
+      summary: Xóa một cuốn sách
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Xóa thành công
+components:
+  schemas:
+    Book:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: "Kiến trúc Hướng dịch vụ"
+        author:
+          type: string
+          example: "Nguyễn Văn A"
