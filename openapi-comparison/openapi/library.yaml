@@ -1,0 +1,69 @@
+openapi: 3.0.0
+info:
+  title: Library Management API
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+paths:
+  /books:
+    get:
+      summary: Lấy danh sách toàn bộ sách
+      responses:
+        '200':
+          description: A list of books
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
+    post:
+      summary: Thêm một cuốn sách mới
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookInput'
+      responses:
+        '201':
+          description: Sách được thêm thành công
+  /books/{id}:
+    get:
+      summary: Xem chi tiết sách
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Chi tiết sách
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+components:
+  schemas:
+    Book:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: "Sapiens"
+        author:
+          type: string
+          example: "Yuval Noah Harari"
+    BookInput:
+      type: object
+      properties:
+        title:
+          type: string
+          example: "Tắt đèn"
+        author:
+          type: string
+          example: "Ngô Tất Tố"

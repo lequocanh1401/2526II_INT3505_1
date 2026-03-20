@@ -1,0 +1,44 @@
+FORMAT: 1A
+
+# Library Management API
+
+Library API allows consumers to manage books.
+
+## Books Collection [/books]
+
+### List All Books [GET]
++ Response 200 (application/json)
+
+        [
+            {
+                "id": 1,
+                "title": "Sapiens",
+                "author": "Yuval Noah Harari"
+            }
+        ]
+
+### Add a New Book [POST]
+
++ Request (application/json)
+
+        {
+            "title": "Tắt đèn",
+            "author": "Ngô Tất Tố"
+        }
+
++ Response 201 (application/json)
+
+## Book Detail [/books/{id}]
+
++ Parameters
+    + id: 1 (number, required) - ID of the Book
+
+### Get Book Details [GET]
+
++ Response 200 (application/json)
+
+        {
+            "id": 1,
+            "title": "Sapiens",
+            "author": "Yuval Noah Harari"
+        }

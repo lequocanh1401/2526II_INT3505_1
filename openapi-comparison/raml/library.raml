@@ -1,0 +1,56 @@
+#%RAML 1.0
+title: Library Management API
+version: v1
+baseUri: http://localhost:8080
+
+types:
+  Book:
+    type: object
+    properties:
+      id: integer
+      title: string
+      author: string
+  BookInput:
+    type: object
+    properties:
+      title: string
+      author: string
+
+/books:
+  get:
+    description: Lấy danh sách toàn bộ sách
+    responses:
+      200:
+        body:
+          application/json:
+            type: Book[]
+            example:
+              - id: 1
+                title: "Sapiens"
+                author: "Yuval Noah Harari"
+  post:
+    description: Thêm một cuốn sách mới
+    body:
+      application/json:
+        type: BookInput
+        example:
+          title: "Tắt đèn"
+          author: "Ngô Tất Tố"
+    responses:
+      201:
+        description: Sách được thêm thành công
+
+  /{id}:
+    uriParameters:
+      id: integer
+    get:
+      description: Xem chi tiết sách
+      responses:
+        200:
+          body:
+            application/json:
+              type: Book
+              example:
+                id: 1
+                title: "Sapiens"
+                author: "Yuval Noah Harari"
