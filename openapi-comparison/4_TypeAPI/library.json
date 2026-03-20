@@ -1,0 +1,67 @@
+{
+  "typeapi": "1.0",
+  "info": {
+    "title": "Library Management API",
+    "version": "1.0.0"
+  },
+  "operations": {
+    "getBooks": {
+      "description": "Lấy danh sách toàn bộ sách",
+      "method": "GET",
+      "path": "/books",
+      "return": {
+        "schema": {
+          "type": "array",
+          "items": { "$ref": "Book" }
+        }
+      }
+    },
+    "createBook": {
+      "description": "Thêm một cuốn sách mới",
+      "method": "POST",
+      "path": "/books",
+      "arguments": {
+        "payload": {
+          "in": "body",
+          "schema": { "$ref": "BookInput" }
+        }
+      },
+      "return": {
+        "schema": {
+          "type": "object"
+        }
+      }
+    },
+    "getBook": {
+      "description": "Xem chi tiết sách",
+      "method": "GET",
+      "path": "/books/{id}",
+      "arguments": {
+        "id": {
+          "in": "path",
+          "schema": { "type": "integer" }
+        }
+      },
+      "return": {
+        "schema": { "$ref": "Book" }
+      }
+    }
+  },
+  "definitions": {
+    "Book": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "integer" },
+        "title": { "type": "string" },
+        "author": { "type": "string" }
+      }
+    },
+    "BookInput": {
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "author": { "type": "string" }
+      }
+    }
+  }
+}
