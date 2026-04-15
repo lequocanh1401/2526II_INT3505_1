@@ -1,0 +1,72 @@
+openapi: 3.0.0
+info:
+  title: Product API
+  version: 1.0.0
+paths:
+  /products:
+    get:
+      summary: Lấy danh sách sản phẩm
+      responses:
+        '200':
+          description: Thành công
+    post:
+      summary: Tạo sản phẩm mới
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                price:
+                  type: number
+      responses:
+        '201':
+          description: Đã tạo
+  /products/{id}:
+    get:
+      summary: Lấy thông tin 1 sản phẩm
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Thành công
+    put:
+      summary: Cập nhật sản phẩm
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                price:
+                  type: number
+      responses:
+        '200':
+          description: Cập nhật thành công
+    delete:
+      summary: Xóa sản phẩm
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Xóa thành công
